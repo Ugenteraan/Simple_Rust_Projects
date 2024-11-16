@@ -1,8 +1,24 @@
 use std::io;
 
+
+//helper func to read number.
+fn read_number(prompt: &str) -> f64 {
+    
+    loop {
+        println!("{}", prompt);
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).expect("Failed to read the line.");
+
+        match input.trim().parse() {
+            Ok(num) => return num,
+            Err(_) => println!("Invalid number. Please try again!"),
+        }
+    }
+}
+
 fn main() {
 
-    println!("Simple Rust(y) Calculator");
+    println!("Rustific Calculator");
 
     loop {
         println!("\nChoose an Operation:");
@@ -10,7 +26,12 @@ fn main() {
         println!("2. Subtract");
         println!("3. Multiply");
         println!("4. Divide");
-        println!("5. Exit");
+        println!("5. Sqrt");
+        println!("6. Pow");
+        println!("7. Sin");
+        println!("8. Cos");
+        println!("9. Tan");
+        println!("10. Exit");
 
         let mut choice = String::new();
         io::stdin().read_line(&mut choice).expect("Failed to read line");
@@ -26,53 +47,63 @@ fn main() {
             }
         };
 
-        if choice == 5 {
+        if choice == 10 {
             println!("Exiting this rusty place...");
             break;
         }
 
-        println!("Enter the first number: ");
-        let mut num1 = String::new();
-        io::stdin().read_line(&mut num1).expect("Failed to read first number.");
-        let num1: f64 = match num1.trim().parse() {
-            Ok(num) => num,
-            Err(_) => {
-                println!("Invalid number.");
-                continue
-            }
-        };
+        if choice >= 1 && choice <= 4 {
 
+            let num1 = read_number("Enter the first number: ");
+            let num2 = read_number("Enter the second number: ");
 
-        println!("Enter the second number: ");
-        let mut num2 = String::new();
-        io::stdin().read_line(&mut num2).expect("Failed to read second number.");
-        let num2: f64 = match num2.trim().parse() {
-            Ok(num) => num,
-            Err(_) => {
-                println!("Invalid number.");
-                continue
-            }
-        };
+            match choice {
 
-
-        match choice {
-
-            1 => println!("Result: {} + {} = {}", num1, num2, num1 + num2),
-            2 => println!("Result: {} - {} = {}", num1, num2, num1-num2),
-            3 => println!("Result: {} x {} = {}", num1, num2, num1*num2),
-            4 => {
-                if num2 == 0.0 {
-                    println!("Error, division by zero.");
-                } else {
-                    println!("Result: {} / {} = {}", num1, num2, num1 / num2);
+                1 => println!("Result: {} + {} = {}", num1, num2, num1 + num2),
+                2 => println!("Result: {} - {} = {}", num1, num2, num1-num2),
+                3 => println!("Result: {} x {} = {}", num1, num2, num1*num2),
+                4 => {
+                    if num2 == 0.0 {
+                        println!("Error, division by zero.");
+                    } else {
+                        println!("Result: {} / {} = {}", num1, num2, num1 / num2);
+                    }
                 }
+                _ => println!("Invalid choice, please select a valid choice"),
             }
-            _ => println!("Invalid choice, please select a valid choice"),
+
+        } else if choice == 5 {
+            
+            let num = read_number("Enter a number: ");
+            if num < 0.0 {
+                println!("Error: Cannot calculate the square root of a negative number.");
+            } else {
+                println!("Result: sqrt({}) = {}", num, num.sqrt());
+            }
+        } else if choice == 6 {
+            
+            let base = read_number("Enter the base number: ");
+            let exponent = read_number("Enter the exponent number: ");
+
+            println!("Result: {}^{} = {}", base, exponent, base.powf(exponent));
+        } else if choice >= 7 && choice <= 9 {
+            
+            let angle = read_number("Enter the angle in degrees: ");
+            let radians = angle.to_radians(); //convert to radian for calculation.
+           
+            match choice {
+                7 => println!("Result: sin({}) = {}", angle, radians.sin()),
+                8 => println!("Result: cos({}) = {}", angle, radians.cos()),
+                9 => if angle == 90.0 {
+                    println!("Tan(90) yields sin(90)/cos(90) which is 1/0. Thus, it's undefined.");
+                } else{
+                    println!("Result: tan({}) = {}", angle, radians.tan());
+                },
+                _ => {}
+            }
+        } else{
+            println!("Invalid choice! Please select a valid operation.");
         }
-
-
-
     }
-
 }
 
