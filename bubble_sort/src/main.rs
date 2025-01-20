@@ -2,18 +2,24 @@
 
 fn bubble_sort(mut x: Vec<i32>) -> Vec<i32> {
 
-    let mut complete: bool = false;
+    let mut swapped: bool;
 
-    while !complete {
+    loop {
 
-        complete = true;
+        swapped = false;
+
         for i in 0..x.len()-1 {
-            if x[i+1] < x[i] {
-                complete = false;
+            if x[i] > x[i+1] {
                 x.swap(i, i+1);
+                swapped = true;
             }
         }
+
+        if !swapped {
+            break;
+        }
     }
+
     x
     
 }
