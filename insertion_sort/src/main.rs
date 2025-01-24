@@ -52,7 +52,6 @@ fn insertion_sort(mut x: Vec<i32>) -> Vec<i32>{
 
 
 
-
 fn main() {
 
     let x: Vec<i32> = vec![9,2,5,1,6,10];
