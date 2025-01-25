@@ -1,25 +1,48 @@
 
 
+//recursive implementation
+// fn selection_sort(x: &mut [i32]) -> () {
+
+//     if x.len() <= 1 {
+//         return;
+//     }
+
+//     let mut smallest_value = x[0]; //temporary first smallest number assignment.
+//     let mut smallest_value_index = 0;
+
+//     for i in 1..x.len() {
+
+//         if x[i] < smallest_value {
+//             smallest_value_index = i;
+//             smallest_value = x[i]; //update the smallest number
+//         }
+//     }
+//     x.swap(0, smallest_value_index);
+
+//     selection_sort(&mut x[1..]);
+
+// }
+
+//non-recursive implementation
+
 fn selection_sort(x: &mut [i32]) -> () {
 
-    if x.len() <= 1 {
-        return;
-    }
+    let n = x.len();
 
-    let mut smallest_value = x[0]; //temporary first smallest number assignment.
-    let mut smallest_value_index = 0;
+    for i in 0..n {
 
-    for i in 1..x.len() {
+        let mut smallest_val_idx = i; //this will change as the the loop iterates.
 
-        if x[i] < smallest_value {
-            smallest_value_index = i;
-            smallest_value = x[i];
+        for j in i+1..n {
+
+            if x[j] < x[smallest_val_idx] {
+                smallest_val_idx = j;
+            }
+
         }
+
+        x.swap(i, smallest_val_idx);
     }
-    x.swap(0, smallest_value_index);
-
-    selection_sort(&mut x[1..]);
-
 }
 
 
