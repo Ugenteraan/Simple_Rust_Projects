@@ -63,7 +63,7 @@ impl SnakeGame {
         //in order to draw the elements in the terminal, we have to move the cursor to the location
         //before printing out the desired element.
         for x in 0..=self.width {
-            execute!(stdout(), cursor::MoveTo(x, 0)).unwrap();
+            execute!(stdout(), cursor::MoveTo(x, 0)).unwrap(); 
             println!("#");
         }
 
